@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>REGISTRATION</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="newcss.css">
+    </head>
+  <body>
+        <div class="promo-banner">
+            <p>Thank you for checking out YoungLife!</p>
+        </div>
+
+        <header class="main-header">
+            <div class="logo-section">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6Q5Suqasni_c7e6wvWEvbwQP6idtLD-jaNg&s" alt="Logo" class="logo">
+                <h1 class="brand-name">younglife</h1>
+            </div>
+        </header>
+
+        <nav class="nav-bar">
+            <ul class="nav-links">
+                <li><a href="https://younglife.org/">Home</a></li>
+                <li><a href="StuRegistration.html">Student Registration</a></li>
+            <li><a href="StuEnroll.html">Event Enrollment</a></li>
+            <li><a href="leadEnroll.html">Leader Enrollment</a></li>
+            <li><a href="">Events</a></li>  <!-- Please add the events page when it is ready somret -->
+            </ul>
+        </nav>
+
+        <div>
+            <h1>Leader Registration</h1>
+            <form action="ThankYOU.html" id ="leaderRegistration" method="post">
+                <label for="firstName">First Name:</label><br>
+                <input type="text" id="firstName" name="firstName" required><br><br>
+
+                <label for="lastName">Last Name:</label><br>
+                <input type="text" id="lastName" name="lastName" required><br><br>
+
+                <label for="phoneNumber">Phone Number:</label><br>
+                <input type="tel" id="phoneNumber" name="phoneNumber" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="123-456-7890" required><br><br>
+
+                <label for="email">Email:</label><br>
+                <input type="email" id="email" name="email" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" placeholder="example@email.com" required><br><br>
+
+                <label for="club">Club:</label><br>
+                <select name="Club" id="Club">
+                    <option value ="Kamehameha">Kamehameha</option>
+                    <option value ="Farrington">Farrington</option>
+                </select><br>
+
+                <div class="form-action">
+                    <button type="submit" id="submitForm">Submit</button></a> </div>
+            </form>
+        </div>
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('leaderRegistration');
+            document.getElementById('leaderRegistration').addEventListener('submit', function(event){
+                event.preventDefault();
+                const form = document.querySelector('form');
+                if(!form.checkValidity()){
+                    return;
+                }
+                alert("Thank you for choosing Young Life!");
+                
+                const formData = new FormData(form);
+                const formObject = Object.fromEntries(formData.entries());
+                console.log('Data:', formObject);
+                const formName ={
+                    name: form.id
+                }
+                if(formObject.Club === "Kamehameha"){
+                    club_id = 1;
+                }
+                else club_id = 2;
+
+                const Leader = {
+
+                    CLUB_ID: club_id,
+                    FIRST_NAME: formObject.firstName,
+                    LAST_NAME: formObject.lastName,
+                    PHONE_NUM: formObject.phoneNumber,
+                    EMAIL: formObject.email
+
+                }
+
+                let data = [formName, Leader];
+                
+                fetch('http://localhost:5000/submit-YLdata', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Response from server:', data);
+                })
+                .catch(error => console.error('Error:', error));
+                
+            })
+                
+
+        });
+
+    </script>
+    </body>
+</html>
