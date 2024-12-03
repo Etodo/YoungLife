@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>REGISTRATION</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="newcss.css">
+           </head>
+    <body>
+         <div class="promo-banner">
+        <p>Thank you for checking out YoungLife!</p>
+    </div>
+
+    <header class="main-header">
+        <div class="logo-section">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6Q5Suqasni_c7e6wvWEvbwQP6idtLD-jaNg&s" alt="Logo" class="logo">
+            <h1 class="brand-name">younglife</h1>
+        </div>
+    </header>
+
+    <nav class="nav-bar">
+        <ul class="nav-links">
+            <li><a href="https://younglife.org/">Home</a></li>
+            <li><a href="StuRegistration.html">Student Registration</a></li>
+            <li><a href="StuEnroll.html">Event Enrollment</a></li>
+            <li><a href="">Events</a></li>  <!-- Please add the events page when it is ready somret -->
+        </ul>
+    </nav>
+
+        <div>
+                <h1>Registration Information</h1>
+    <form id ="studentRegistration" method="POST">
+        <label for="firstName">First Name:</label><br>
+        <input type="text" id="firstName" name="studentFirstName" required><br><br>
+
+        <label for="lastName">Last Name:</label><br>
+        <input type="text" id="lastName" name="studentLastName" required><br><br>
+
+        <label for="phoneNumber">Phone Number:</label><br>
+        <input type="tel" id="phoneNumber" name="studentPhoneNumber" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="123-456-7890" required><br><br>
+
+        <label for="dob">Date of Birth:</label><br>
+        <input type="date" id="dob" name="studentDob" required><br><br>
+
+                    <h3>Address:</h3>
+        <label for="street">Street Address:</label><br>
+        <input type="text" id="street" name="studentStreet" required><br><br>
+
+        <label for="city">City:</label><br>
+        <input type="text" id="city" name="studentCity" required><br><br>
+
+        <label for="state">State:</label><br>
+        <input type="text" id="state" name="studentState" required><br><br>
+
+        <label for="zip">ZIP Code:</label><br>
+        <input type="text" id="zip" name="studentZip" pattern="[0-9]{5}"  required><br><br>
+        
+        <h3>Student Information</h3>
+        <label for="highschool">Please Select Your Highschool:</label>
+        <select name="highschool" id="highschool"> 
+            <option value="Kamehameha">Kamehameha</option>
+            <option value="Farrington">Farrington</option>
+        </select>
+        <label for="highschool">Please Select Your Graduation Year</label>
+        <select name="GradYear" id="GradYear"> 
+            <option value=></option>
+            <option value=></option>
+            <option value=></option>
+            <option value=></option>
+        </select><br>
+        
+        <label for="stu_email">Email:</label><br>
+        <input type="email" id="stu_email" name="studentemail" required><br><br>
+        
+        <h2>Please Enter Guardian Information:</h2>
+                
+        <label for="guardianFirstName">First Name:</label><br>
+        <input type="text" id="guardianFirstName" name="guardianFirstName" required><br><br>
+
+        <label for="guardianLastName">Last Name:</label><br>
+        <input type="text" id="guardianLastName" name="guardianLastName" required><br><br>
+        
+        <label for="relationship">Relationship to Student:</label><br>
+        <select name="Relation" id="Relationship">
+            <option value ="Mother">Mother</option>
+            <option value ="Father">Father</option>
+            <option value ="Sibling">Sibling</option>
+            <option value ="Relative">Relative</option>
+            <option value ="Other">Other</option>
+        </select><br>
+
+        <label for="guardianPhone">Phone Number:</label><br>
+        <input type="tel" id="guardianPhone" name="guardianPhone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="123-456-7890" required><br><br>
+
+        <label for="guardianEmail">Email: </label><br>
+        <input type="email" id="guardianEmail" name="guardianEmail" required><br><br>
+
+                    <h3>Address:</h3>
+        <label for="guardianStreetAddress">Street Address:</label><br>
+        <input type="text" id="guardianStreetAddress" name="guardianStreetAddress" required><br><br>
+
+        <label for="guardianCity">City:</label><br>
+        <input type="text" id="guardianCity" name="guardianCity" required><br><br>
+
+        <label for="guardianState">State:</label><br>
+        <input type="text" id="guardianState" name="guardianState" required><br><br>
+
+        <label for="guardianZip">ZIP Code:</label><br>
+        <input type="text" id="guardianZip" name="guardianZip" pattern="[0-9]{5}"  required><br><br>
+        
+        <button type="submit" id="submitForm">Submit</button>
+    </form>
+        </div>
+        <script>
+
+            const currentYear = new Date().getFullYear();
+            const gradYear = document.getElementById('GradYear');
+            
+            //display graduation years
+            for(i = 0; i < gradYear.options.length; i ++){
+                gradYear.options[i].innerText = currentYear + i;
+                gradYear.options[i].value = currentYear + i;
+               
+            }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('studentRegistration');
+            document.getElementById('studentRegistration').addEventListener('submit', function(event){
+                event.preventDefault();
+                const form = document.querySelector('form');
+                if(!form.checkValidity()){
+                    return;
+                }
+                alert("Thank you for choosing Young Life!");
+                
+                const formData = new FormData(form);
+                const formObject = Object.fromEntries(formData.entries());
+                console.log('Data:', formObject);
+                const formName ={
+                    name: form.id
+                }
+
+                if (formObject.highschool === "Kamehameha"){
+                    highschool_id = 1;
+                }
+                if (formObject.highschool === "Farrington"){
+                    highschool_id = 2;
+                }
+                const student = {
+
+                    SCHOOL_ID: highschool_id,
+                    FIRST_NAME: formObject.studentFirstName,
+                    LAST_NAME: formObject.studentLastName,
+                    PHONE_NUM: formObject.studentPhoneNumber,
+                    GRAD_YEAR: formObject.GradYear
+                }
+
+                const guardian = {
+
+                    FIRST_NAME: formObject.guardianFirstName,
+                    LAST_NAME: formObject.guardianLastName,
+                    PHONE_NUM: formObject.guardianPhone,
+                    EMAIL: formObject.guardianEmail
+                    
+                }
+
+                const student_Address = {
+
+                    STREET_ADD: formObject.studentStreet,
+                    CITY: formObject.studentCity,
+                    ZIP: formObject.studentZip,
+                    STATE: formObject.studentState
+                }
+                const guardian_Address = {
+
+                    STREET_ADD: formObject.guardianStreetAddress,
+                    CITY: formObject.guardianCity,
+                    ZIP: formObject.guardianZip,
+                    STATE: formObject.guardianState
+
+                }
+                let data = [formName, student_Address, student, guardian];
+
+                if(JSON.stringify(student_Address) !== JSON.stringify(guardian_Address)){
+
+                    data = [formName, student_Address, guardian_Address, student, guardian];
+
+                }
+                
+                
+                
+                fetch('http://localhost:5000/submit-YLdata', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Response from server:', data);
+                })
+                .catch(error => console.error('Error:', error));
+                
+            })
+                
+
+        });
+
+    </script> 
+
+<div class = "GoNow">
+    <h2>Newly Registered? Enroll in an upcoming YoungLife Event!</h2>
+    <a href="StuEnroll.html"><button>Enroll Now!</button></a>
+</div>
+    </body>
+</html>

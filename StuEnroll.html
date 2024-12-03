@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>REGISTRATION</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="enrollcss.css">
+    </head>
+  <body>
+        <div class="promo-banner">
+            <p>Thank you for checking out YoungLife!</p>
+        </div>
+
+        <header class="main-header">
+            <div class="logo-section">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6Q5Suqasni_c7e6wvWEvbwQP6idtLD-jaNg&s" alt="Logo" class="logo">
+                <h1 class="brand-name">younglife</h1>
+            </div>
+        </header>
+
+        <nav class="nav-bar">
+            <ul class="nav-links">
+                <li><a href="https://younglife.org/">Home</a></li>
+                <li><a href="StuRegistration.html">Student Registration</a></li>
+                <li><a href="StuEnroll.html">Event Enrollment</a></li>
+                <li><a href="">Events</a></li>  <!-- Please add the events page when it is ready somret -->
+            </ul>
+        </nav>
+      
+      <div class="container">
+            <h1>Student Enrollment Information</h1>
+            <div class="GoNow">
+                <h2>Are you a YoungLife Registered Student? Sign up before enrolling!</h2>
+                <a href="StuRegistration.html"><button>Register Now!</button></a>
+            </div>
+            <form action="ThankYOU.html" method="post">
+                <label for="firstName">First Name:</label><br>
+                <input type="text" id="firstName" name="firstName" required><br><br>
+
+                <label for="lastName">Last Name:</label><br>
+                <input type="text" id="lastName" name="lastName" required><br><br>
+
+                <label for="phoneNumber">Phone Number:</label><br>
+                <input type="tel" id="phoneNumber" name="phoneNumber" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="123-456-7890" required><br><br>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </body>
+</html>

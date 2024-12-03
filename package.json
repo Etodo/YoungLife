@@ -1,0 +1,13 @@
+{
+  "name": "Backend Server for BudiBase",
+  "version": "1.0.0",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "sqlite3": "^5.1.7"
+  }
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html>  
+    <head>
+        <title>REGISTRATION</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="box.css">
+    </head>
+  <body>
+        <div class="promo-banner">
+            <p>Thank you for checking out YoungLife!</p>
+        </div>
+
+        <header class="main-header">
+            <div class="logo-section">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6Q5Suqasni_c7e6wvWEvbwQP6idtLD-jaNg&s" alt="Logo" class="logo">
+                <h1 class="brand-name">younglife</h1>
+            </div>
+        </header>
+
+        <nav class="nav-bar">
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>                
+                <li><a href="StuRegistration.html">Student Registration</a></li>
+                <li><a href="StuEnroll.html">Event Enrollment</a></li>
+                <li><a href="">Events</a></li>  
+                <li><a href="https://younglife.org/">About</a></li>
+        </nav>
+
+        <div class="Student-view">
+            <h1>Enroll Now!</h1><br><br><br>
+            <a href="StuEnroll.html"></a><button>Student View</button></a>
+        </div>
+
+        <div class="leader-view">
+            <h1>YoungLife Leaders</h1><br><br><br>
+
+            <input type="password" id="password" placeholder="Enter Password">
+            <button onclick="checkPassword()">Submit</button>
+            <p id="message"></p>
+        </div>   
+
+            <script>
+                function checkPassword() {
+                    const correctPassword = "YLOahu3432";
+                    const userPassword = document.getElementById('password').value;
+                    const messageElement = document.getElementById('message');
+            
+                    if (userPassword === correctPassword) {
+                        window.location.href = "leader.html";
+                    } else {
+                        messageElement.textContent = "Error: Incorrect Password.";
+                        messageElement.className = "error";
+                    }
+                }
+            </script>
+        
+</html>

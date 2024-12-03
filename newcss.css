@@ -1,0 +1,272 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(254, 254, 254); 
+    color: rgb(0, 58, 91); 
+}
+
+form {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: rgb(253, 185, 48); 
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2, h3 {
+    color: rgb(0, 58, 91);
+    margin-bottom: 10px;
+}
+
+label {
+    font-weight: bold;
+    color: rgb(0, 58, 91); 
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"], input[type="tel"], input[type="email"], input[type="date"], select {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 2px solid rgb(238, 147, 33); 
+    border-radius: 5px;
+    background-color: rgb(254, 254, 254); 
+    color: rgb(0, 58, 91); 
+}
+
+
+input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+
+button {
+    background-color: rgb(146, 201, 60); 
+    color: rgb(254, 254, 254);
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+
+button:hover {
+    background-color: rgb(238, 147, 33); 
+}
+
+/* Form section spacing */
+form h3, form h2 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+/* Add some spacing around the form */
+body > div {
+    padding: 20px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: rgb(254, 254, 254);
+    color: rgb(0, 58, 91);
+}
+
+/* Promo Banner */
+.promo-banner {
+    background-color: rgb(253, 185, 48);
+    text-align: center;
+    padding: 10px 0;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* Main Header Section */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(0, 58, 91);
+    padding: 10px 20px;
+    color: white;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.brand-name {
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-involved {
+    background-color: rgb(238, 147, 33);
+    color: white;
+}
+
+.btn-involved:hover {
+    background-color: rgb(253, 185, 48);
+}
+
+.btn-give {
+    background-color: rgb(146, 201, 60);
+    color: white;
+}
+
+.btn-give:hover {
+    background-color: rgb(0, 58, 91);
+    color: white;
+}
+
+/* Navigation Bar */
+.nav-bar {
+    background-color: white;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    padding: 10px 0;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    margin: 0;
+    list-style: none;
+}
+
+.nav-links li {
+    margin: 0 15px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: rgb(0, 58, 91);
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.nav-links a:hover {
+    color: rgb(0, 58, 91);
+}
+
+.main-header h1 {
+    color: white;
+}
+
+.background-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: url("https://i.pinimg.com/originals/25/3c/29/253c29228da237aca9e07d6576cdd3d8.jpg") no-repeat center center/cover;
+}
+
+
+.content-box {
+    background-color: rgba(146, 201, 60, 0.8); 
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px;
+    max-width: 80%;
+    margin-bottom: 20px;
+}
+
+.content-box h1,
+.content-box h2 {
+    color: white;
+    margin: 10px 0;
+}
+
+
+.image-gallery {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+}
+
+.image-gallery img {
+    max-height: 200px;
+    max-width: 200px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.image-gallery img:hover {
+    transform: scale(1.1);
+}
+
+.GoNow h2 {
+     color: rgb(0, 58, 91);
+    margin-bottom: 10px;
+}
+
+.GoNow button {
+    background-color: rgb(238, 147, 33); 
+    color: rgb(254, 254, 254);
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+
+.GoNow button:hover {
+    background-color: rgb(146, 201, 60); 
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: rgb(253, 185, 48); 
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.GoNow {
+    text-align: center;
+    background-color: rgb(146, 201, 60);
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 8px;
+    max-width: 800px;
+}
