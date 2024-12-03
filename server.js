@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import process from 'process';
 import sqlite3 from 'sqlite3';
 import bodyParser from 'body-parser';
+import path from 'path';
 
 
 dotenv.config();
@@ -13,7 +14,8 @@ app.use(express.json());
 // Middleware to parse JSON
 app.use(bodyParser.json());
 
-const database = new sqlite3.Database('C:\\Users\\sirpl\\Downloads\\Backend server\\sqlite (4).db', (err) => {
+const dbPath = path.resolve('sqlite (4).db')
+const database = new sqlite3.Database(dbPath, (err) => {
     if (err) {
       console.error('Error opening database:', err.message);
     } else {
@@ -40,6 +42,7 @@ async function getQueries(query){
 
             if(err) reject(err);
             else resolve(rows);
+            console.log(rows);
         })
     })
 }
@@ -71,12 +74,63 @@ app.use((req, res, next) => { //cors bypass policy
     next();
 
 });
+app.get('/get-eventInfo', async (req, res) => { 
+    try{
+        const retrieve_event_addresses = `SELECT ADDRESS.STREET_ADD FROM EVENT JOIN ADDRESS ON EVENT.ADDRESS_ID = ADDRESS.ADDRESS_ID`;
+        const retrieve_events = `SELECT EVENT_ID, EVENT_NAME, EVENT_DATE FROM EVENT`;
+        const retrieve_students = `SELECT STUDENT.STUDENT_ID FROM STU_ENROLL JOIN STUDENT ON STU_ENROLL.STUDENT_ID = STUDENT.STUDENT_ID`;
+        const retrieve_event_information =  `
+                        SELECT 
+                            EVENT.EVENT_NAME,
+                            EVENT.EVENT_DATE,
+                            ADDRESS.STREET_ADD,
+                            STUDENT.FIRST_NAME AS STUDENT_FIRST_NAME,
+                            STUDENT.LAST_NAME AS STUDENT_LAST_NAME,
+                            LEADER.FIRST_NAME AS LEADER_FIRST_NAME,
+                            LEADER.LAST_NAME AS LEADER_LAST_NAME
+                        FROM 
+                            EVENT
+                        JOIN 
+                            ADDRESS
+                            ON EVENT.ADDRESS_ID = ADDRESS.ADDRESS_ID
+                        LEFT JOIN 
+                            STU_ENROLL 
+                            ON EVENT.EVENT_ID = STU_ENROLL.EVENT_ID
+                        LEFT JOIN 
+                            STUDENT 
+                            ON STU_ENROLL.STUDENT_ID = STUDENT.STUDENT_ID
+                        LEFT JOIN 
+                            LEADER_ENROLL 
+                            ON EVENT.EVENT_ID = LEADER_ENROLL.EVENT_ID
+                        LEFT JOIN 
+                            LEADER
+                            ON LEADER_ENROLL.LEADER_ID = LEADER.LEADER_ID
+                        ORDER BY 
+                            EVENT.EVENT_ID, STUDENT.LAST_NAME, STUDENT.FIRST_NAME, LEADER.LAST_NAME, LEADER.FIRST_NAME
+                    `;
+        const eventInfo = await getQueries(retrieve_event_information);
+        console.log(retrieve_event_information);
+        res.status(200).json(eventInfo);
+
+    }
+    catch(error){
+
+        console.error('error retrieving data: ', error);
+        return res.status(500).json({
+
+            message: 'there was an error retrieving the data',
+            error: error.response?.data || error.message,
+        });
+    }
+    
+});
 
 app.get('/get-events', async (req, res) => { 
     try{
 
         const retrieve_events = `SELECT EVENT_ID, EVENT_NAME, EVENT_DATE FROM EVENT`;
         const events = await getQueries(retrieve_events);
+        console.log(events);
         res.status(200).json(events);
 
     }
