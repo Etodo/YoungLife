@@ -5,10 +5,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
 -->
 <html>
     <head>
-        <title>REGISTRATION</title>
+        <title>ENROLLMENT</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="enrollcss.css">
+        <link rel="stylesheet" type="text/css" href="newcss.css">
     </head>
   <body>
         <div class="promo-banner">
@@ -37,7 +37,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                 <h2>Are you a YoungLife Registered Student? Sign up before enrolling!</h2>
                 <a href="StuRegistration.html"><button>Register Now!</button></a>
             </div>
-            <form action="ThankYOU.html" method="post">
+            <form action="ThankYOU.html" id="studentEnrollment" method="post">
                 <label for="firstName">First Name:</label><br>
                 <input type="text" id="firstName" name="firstName" required><br><br>
 
@@ -46,8 +46,84 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
 
                 <label for="phoneNumber">Phone Number:</label><br>
                 <input type="tel" id="phoneNumber" name="phoneNumber" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="123-456-7890" required><br><br>
-                <button type="submit">Submit</button>
+
+                <h3>Select an Event:</h3>
+                <label for="events">Events:</label>
+                <select id="event" name ="event">
+
+                </select><br><br>
+                <div class="form-action">
+                    <a href="ThankYOU.html"><button type="submit" id="submitForm">Submit</button></a> </div>
             </form>
+                </div>
         </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+
+
+
+                fetch('http://localhost:5000/get-events')
+                    .then(response => response.json())
+                    .then(events => {
+                        const eventSelect = document.getElementById('event');
+                        eventSelect.innerHTML = '';
+
+                        events.forEach(event =>{
+
+                            const option = document.createElement('option');
+                            option.value = event.EVENT_ID; // You can choose what to store in the value
+                            option.textContent = `${event.EVENT_NAME} - ${event.EVENT_DATE}`;
+                            eventSelect.appendChild(option);
+
+                        });
+                    });
+
+                const form = document.getElementById('studentEnrollment');
+                document.getElementById('studentEnrollment').addEventListener('submit', function(event){
+                    event.preventDefault();
+                    const form = document.querySelector('form');
+                    if(!form.checkValidity()){
+                        return;
+                    }
+
+                    const formData = new FormData(form);
+                    const formObject = Object.fromEntries(formData.entries());
+
+
+                    console.log('Data:', formObject);
+                    const formName ={
+                        name: form.id
+                    }
+                    const eventID = {
+                        EVENT_ID: formObject.event
+                    }
+                    const student = {
+                        FIRST_NAME: formObject.firstName,
+                        LAST_NAME: formObject.lastName,
+                        PHONE_NUM: formObject.phoneNumber
+                    }
+                    const data = [formName, eventID, student];
+                    fetch('http://localhost:5000/submit-YLdata', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(data)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Response from server:', data);
+                    })
+                    .catch(error => console.error('Error:', error));
+                    
+
+                    window.location.href = "ThankYOU.html"
+                })
+                    
+    
+            });
+    
+        </script>
+
     </body>
 </html>
