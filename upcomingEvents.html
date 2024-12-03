@@ -161,46 +161,77 @@
         </tbody>
     </table>
 
-   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const eventsBody = document.getElementById('eventsBody');
-
-        fetch('http://localhost:5000/get-events')
-            .then(response => response.json())
-            .then(events => {
-                if (events.length === 0) {
-                    const emptyRow = document.createElement('tr');
-                    emptyRow.innerHTML = `
-                        <td colspan="6" class="empty-state">
-                            No upcoming events scheduled
+  <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const eventsBody = document.getElementById('eventsBody');
+        
+            fetch('http://localhost:5000/get-eventInfo')
+                .then(response => response.json())
+                .then(events => {
+                    if (events.length === 0) {
+                        const emptyRow = document.createElement('tr');
+                        emptyRow.innerHTML = `
+                            <td colspan="5" class="empty-state">
+                                No upcoming events scheduled
+                            </td>
+                        `;
+                        eventsBody.appendChild(emptyRow);
+                        return;
+                    }
+        
+                    // Grouping students and leaders by event
+                    const groupedEvents = events.reduce((acc, event) => {
+                        const eventKey = `${event.EVENT_NAME}-${event.EVENT_DATE}-${event.STREET_ADD}`;
+                        if (!acc[eventKey]) {
+                            acc[eventKey] = {
+                                eventName: event.EVENT_NAME,
+                                eventDate: event.EVENT_DATE,
+                                eventLocation: event.STREET_ADD,
+                                students: [],
+                                leaders: []
+                            };
+                        }
+        
+                        // Group students
+                        if (event.STUDENT_FIRST_NAME && event.STUDENT_LAST_NAME) {
+                            acc[eventKey].students.push(`${event.STUDENT_FIRST_NAME} ${event.STUDENT_LAST_NAME}`);
+                        }
+        
+                        // Group leaders
+                        if (event.LEADER_FIRST_NAME && event.LEADER_LAST_NAME) {
+                            acc[eventKey].leaders.push(`${event.LEADER_FIRST_NAME} ${event.LEADER_LAST_NAME}`);
+                        }
+        
+                        return acc;
+                    }, {});
+        
+                    // Render grouped events
+                    for (const eventKey in groupedEvents) {
+                        const { eventName, eventDate, eventLocation, students, leaders } = groupedEvents[eventKey];
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${eventName}</td>
+                            <td>${new Date(eventDate).toLocaleDateString()}</td>
+                            <td>${eventLocation}</td>
+                            <td>${students.length > 0 ? students.join(', ') : 'No students enrolled'}</td>
+                            <td>${leaders.length > 0 ? leaders.join(', ') : 'No leaders enrolled'}</td>
+                        `;
+                        eventsBody.appendChild(row);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching events:', error);
+                    const errorRow = document.createElement('tr');
+                    errorRow.innerHTML = `
+                        <td colspan="5" class="empty-state" style="color: red;">
+                            Failed to load events. Please try again later.
                         </td>
                     `;
-                    eventsBody.appendChild(emptyRow);
-                    return;
-                }
-
-                // Loop through all events and add a row for each
-                events.forEach(event => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${event.EVENT_NAME}</td>
-                        <td>${new Date(event.EVENT_DATE).toLocaleDateString()}</td>
-                    `;
-                    eventsBody.appendChild(row);
+                    eventsBody.appendChild(errorRow);
                 });
-            })
-            .catch(error => {
-                console.error('Error fetching events:', error);
-                const errorRow = document.createElement('tr');
-                errorRow.innerHTML = `
-                    <td colspan="6" class="empty-state" style="color: red;">
-                        Failed to load events. Please try again later.
-                    </td>
-                `;
-                eventsBody.appendChild(errorRow);
-            });
-    });
-</script>
+        });
+        
+    </script>
 
 </body>
 </html>
