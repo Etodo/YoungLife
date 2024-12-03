@@ -161,44 +161,47 @@
         </tbody>
     </table>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const eventsBody = document.getElementById('eventsBody');
+   <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const eventsBody = document.getElementById('eventsBody');
 
-            fetch('http://localhost:5000/get-events')
-                .then(response => response.json())
-                .then(events => {
-                    if (events.length === 0) {
-                        const emptyRow = document.createElement('tr');
-                        emptyRow.innerHTML = `
-                            <td colspan="6" class="empty-state">
-                                No upcoming events scheduled
-                            </td>
-                        `;
-                        eventsBody.appendChild(emptyRow);
-                        return;
-                    }
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
-                            <td>${events[1].EVENT_NAME}</td>
-                            <td>${new Date(events[1].EVENT_DATE).toLocaleDateString()}</td>
-                            
-                        `;
-                        eventsBody.appendChild(row);
-                    
-                })
-                .catch(error => {
-                    console.error('Error fetching events:', error);
-                    const errorRow = document.createElement('tr');
-                    errorRow.innerHTML = `
-                        <td colspan="6" class="empty-state" style="color: red;">
-                            Failed to load events. Please try again later.
+        fetch('http://localhost:5000/get-events')
+            .then(response => response.json())
+            .then(events => {
+                if (events.length === 0) {
+                    const emptyRow = document.createElement('tr');
+                    emptyRow.innerHTML = `
+                        <td colspan="6" class="empty-state">
+                            No upcoming events scheduled
                         </td>
                     `;
-                    eventsBody.appendChild(errorRow);
+                    eventsBody.appendChild(emptyRow);
+                    return;
+                }
+
+                // Loop through all events and add a row for each
+                events.forEach(event => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${event.EVENT_NAME}</td>
+                        <td>${new Date(event.EVENT_DATE).toLocaleDateString()}</td>
+                    `;
+                    eventsBody.appendChild(row);
                 });
-        });
-    </script>
+            })
+            .catch(error => {
+                console.error('Error fetching events:', error);
+                const errorRow = document.createElement('tr');
+                errorRow.innerHTML = `
+                    <td colspan="6" class="empty-state" style="color: red;">
+                        Failed to load events. Please try again later.
+                    </td>
+                `;
+                eventsBody.appendChild(errorRow);
+            });
+    });
+</script>
+
 </body>
 </html>
 
