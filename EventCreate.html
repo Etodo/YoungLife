@@ -7,17 +7,33 @@
     <link rel="stylesheet" type="text/css" href="newcss.css">
 </head>
 <body>
-    <form id="event-form" action="http://localhost:5000/create-event" method="POST">
+    <form action="ThankYOU.html" id="eventCreation" method="post">
         <h1>Create Event</h1>
 
         <label for="event-name">Event Name:</label>
         <input type="text" id="event-name" name="event_name" placeholder="Enter event name" required>
 
-        <label for="club-number">Club Number:</label>
-        <input type="text" id="club-number" name="club_number" placeholder="Enter club number" required>
-
+        <label for="club">Club:</label><br>
+                <select name="Club" id="Club">
+                    <option value ="Kamehameha">Kamehameha</option>
+                    <option value ="Farrington">Farrington</option>
+                </select><br>
         <label for="event-date">Event Date:</label>
         <input type="date" id="event-date" name="event_date" required>
+
+        <h3>Event Location:</h3>
+        <label for="street">Street Address:</label><br>
+        <input type="text" id="street" name="street" required><br><br>
+
+        <label for="city">City:</label><br>
+        <input type="text" id="city" name="city" required><br><br>
+
+        <label for="state">State:</label><br>
+        <input type="text" id="state" name="state" required><br><br>
+
+        <label for="zip">ZIP Code:</label><br>
+        <input type="text" id="zip" name="zip" pattern="[0-9]{5}"  required><br><br>
+
 
         <div class="form-action">
             <a href="ThankYOU.html"><button type="submit" id="submitForm">Submit</button></a> </div>
