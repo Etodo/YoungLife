@@ -30,10 +30,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
             <li><a href="">Events</a></li>  <!-- Please add the events page when it is ready somret -->
         </ul>
     </nav>
-
         <div>
                 <h1>Registration Information</h1>
-    <form id ="studentRegistration" method="POST">
+    <form action="ThankYOU.html" id="studentRegistration" method="post">
         <label for="firstName">First Name:</label><br>
         <input type="text" id="firstName" name="studentFirstName" required><br><br>
 
@@ -60,17 +59,19 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
         <input type="text" id="zip" name="studentZip" pattern="[0-9]{5}"  required><br><br>
         
         <h3>Student Information</h3>
-        <label for="highschool">Please Select Your Highschool:</label>
+        <label for="highschool">Please Select Your School:</label>
         <select name="highschool" id="highschool"> 
-            <option value="Kamehameha">Kamehameha</option>
-            <option value="Farrington">Farrington</option>
+            <option value="Kamehameha">Kamehameha High School</option>
+            <option value="Farrington">Farrington High School</option>
+            <option value="kalakaua">Kalakaua Middle School</option>
+            <option value="KamehamehaM">Kamehameha Middle School</option>
         </select>
         <label for="highschool">Please Select Your Graduation Year</label>
         <select name="GradYear" id="GradYear"> 
-            <option value=></option>
-            <option value=></option>
-            <option value=></option>
-            <option value=></option>
+            <option value="2025">2025</option>
+            <option value="2026">2026</option>
+            <option value="2027">2027</option>
+            <option value="2028">2028</option>
         </select><br>
         
         <label for="stu_email">Email:</label><br>
@@ -112,7 +113,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
         <label for="guardianZip">ZIP Code:</label><br>
         <input type="text" id="guardianZip" name="guardianZip" pattern="[0-9]{5}"  required><br><br>
         
-        <button type="submit" id="submitForm">Submit</button>
+        <div class="form-action">
+            <a href="ThankYOU.html"><button type="submit" id="submitForm">Submit</button></a> </div>
     </form>
         </div>
         <script>
@@ -146,12 +148,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
 
                 if (formObject.highschool === "Kamehameha"){
                     highschool_id = 1;
+                    club_id = 1;
                 }
                 if (formObject.highschool === "Farrington"){
                     highschool_id = 2;
+                    club_id = 2;
                 }
                 const student = {
-
+                    CLUB_ID: club_id,
                     SCHOOL_ID: highschool_id,
                     FIRST_NAME: formObject.studentFirstName,
                     LAST_NAME: formObject.studentLastName,
@@ -211,11 +215,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
 
         });
 
-    </script> 
-
-<div class = "GoNow">
-    <h2>Newly Registered? Enroll in an upcoming YoungLife Event!</h2>
-    <a href="StuEnroll.html"><button>Enroll Now!</button></a>
-</div>
+    </script>
+    
+    <div class = "GoNow">
+        <h2>Newly Registered? Enroll in an upcoming YoungLife Event!</h2>
+        <a href="StuEnroll.html"><button>Enroll Now!</button></a>
+    </div>
     </body>
 </html>
